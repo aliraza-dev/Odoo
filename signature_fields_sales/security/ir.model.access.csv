@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_signature_fields_sales_signature_fields_sales,signature_fields_sales.signature_fields_sales,model_signature_fields_sales_signature_fields_sales,,1,0,0,0
