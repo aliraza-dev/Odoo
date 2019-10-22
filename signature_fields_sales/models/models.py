@@ -41,7 +41,21 @@ class signature_fields_sales(models.Model):
         self.amount_total = self.amount_untaxed + self.amount_tax
         self.x_discount_rate = 0.0
         self.x_discounted_price = 0.0
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+
+# Following code can be used to get anything from sale.order and show it in invoice, you can use any table and any field using following method
+class AccountInvoiceRel(models.Model):
+    _inherit = 'account.invoice'
+
+    x_signature_doc = fields.Binary(string='Project Name',store=True,related="so_reference.x_signature_doc")
+
+    @api.model
+    def get_sale_order_reference(self):
+        for rec in self:
+            res = rec.env['sale.order'].search([('name', '=', rec.origin)])
+            rec.so_reference = res
+
+    so_reference = fields.Many2one('sale.order', compute='get_sale_order_reference')
+
+
+
+
